@@ -3,95 +3,82 @@ import { Searchbar } from './Searchbar/Searchbar.jsx';
 import { ImageGallery } from './ImageGallery/ImageGallery.jsx';
 import { Button } from './Button/Button.jsx';
 import { Loader } from './Loader/Loader.jsx';
-import { getImage } from './api/PixabayApi.js';
+import * as API from '..//components//api/PixabayApi.js';
 import { Message } from './Message/Message.jsx';
-import { Modal } from './Modal/Modal.jsx';
 
 export class App extends Component {
   state = {
-    textQuery: '',
+    searchQuery: '',
     images: [],
-    page: 1,
-    loading: false,
-    showModal: false,
+    currentPage: 1,
     error: null,
-    totalPage: null,
+    isLoading: false,
+    totalPages: 0,
   };
 
-  async componentDidUpdate(_, prevState) {
-    let { page } = this.state;
-    const prevSearchValue = prevState.textQuery;
-    const nextSearchValue = this.state.textQuery;
-
-    if (prevSearchValue !== nextSearchValue || prevState.page !== page) {
-      this.setState({ loading: true });
-
-      try {
-        const response = await getImage(nextSearchValue, page);
-        const { hits, totalHits } = response.data;
-        this.setState(prevState => ({
-          images: [...prevState.images, ...hits],
-          totalPage: totalHits,
-        }));
-      } catch (error) {
-        this.setState({ error: 'Something wrong. Please try again.' });
-      } finally {
-        this.setState({ loading: false });
-      }
+  componentDidUpdate(_, prevState) {
+    if (
+      prevState.searchQuery !== this.state.searchQuery ||
+      prevState.currentPage !== this.state.currentPage
+    ) {
+      this.fetchImages();
     }
   }
+  loadMore = () => {
+    this.setState(prevState => ({
+      currentPage: prevState.currentPage + 1,
+    }));
+  };
 
-  handleSubmit = searchValue => {
+  handleSubmit = query => {
     this.setState({
-      textQuery: searchValue,
-      page: 1,
+      searchQuery: query,
       images: [],
-      loading: false,
-      showModal: false,
+      currentPage: 1,
       error: null,
-      totalPage: null,
     });
   };
 
-  onLoadMore = () => {
-    this.setState(prevState => ({ page: prevState.page + 1 }));
-  };
+  fetchImages = async () => {
+    const { searchQuery, currentPage } = this.state;
+    try {
+      this.setState({ isLoading: true });
 
-  onOpenModal = (imgUrl, tag) => {
-    this.setState({ showModal: true, imgUrl, tag });
-  };
+      const data = await API.getImages(searchQuery, currentPage);
 
-  onCloseModal = () => {
-    this.setState({ showModal: false });
+      if (data.hits.length === 0) {
+        return this.setState({ error: 'Sorry image not found.' });
+      }
+
+      const normalizedImages = API.normalizedImages(data.hits);
+      this.setState(state => ({
+        images: [...state.images, ...normalizedImages],
+        isLoading: false,
+        error: '',
+        totalPages: Math.ceil(data.totalHits / 12),
+      }));
+    } catch (error) {
+      this.setState({ error: 'Something went wrong!' });
+    } finally {
+      this.setState({ isLoading: false });
+    }
   };
 
   render() {
-    const { images, showModal, imgUrl, tag, loading, totalPage, error, page } =
-      this.state;
+    const { images, isLoading, currentPage, totalPages } = this.state;
+
     return (
       <>
         <Searchbar onSubmit={this.handleSubmit} />
-
-        <ImageGallery images={images} openModal={this.onOpenModal} />
-
-        {/* модалка  */}
-        {showModal && (
-          <Modal onClose={this.onCloseModal}>
-            <img src={imgUrl} alt={tag} />
-          </Modal>
+        {images.length > 0 ? (
+          <ImageGallery images={images} />
+        ) : (
+          <Message>{'Let`s find iteresting images!'}</Message>
         )}
-
-        {/* спінер */}
-        <Loader isLoading={loading} />
-
-        {/* кнопка завантажити ще */}
-        {totalPage / 12 > page && <Button loadMore={this.onLoadMore} />}
-
-        {/* нічого не знайшло */}
-        {/* {totalPage === 0 && <ImageErrorView />} */}
-
-        {/* помилка запиту */}
-        {/* {error && <ImageErrorView>{error}</ImageErrorView>} */}
+        {isLoading && <Loader />}
+        {images.length > 0 && totalPages !== currentPage && !isLoading && (
+          <Button onClick={this.loadMore} />
+        )}
       </>
     );
   }
