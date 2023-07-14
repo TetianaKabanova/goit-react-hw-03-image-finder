@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import { Overlay, ModalContainer } from './Modal.styled';
 
-const modalRoot = document.getElementById('modal-root');
+const modalRoot = document.querySelector('modal-root');
 
 export class Modal extends Component {
   componentDidMount() {
@@ -25,17 +25,16 @@ export class Modal extends Component {
     }
   };
   render() {
-    const { largeImageURL, tags } = this.props;
+    const { children } = this.props;
     return createPortal(
-      <Overlay onClick={this.handleBackdropClick}>
-        <ModalContainer>
-          <img src={largeImageURL} alt={tags} />
-        </ModalContainer>
+      <Overlay onClick={this.handleClickBackdrop}>
+        <ModalContainer>{children}</ModalContainer>
       </Overlay>,
       modalRoot
     );
   }
 }
+
 Modal.propTypes = {
   largeImageURL: PropTypes.string.isRequired,
   tags: PropTypes.string.isRequired,

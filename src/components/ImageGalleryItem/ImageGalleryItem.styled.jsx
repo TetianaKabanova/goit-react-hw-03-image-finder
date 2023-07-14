@@ -1,28 +1,16 @@
 import styled from '@emotion/styled';
 
 export const GalleryItem = styled.li`
-  display: flex;
-  align-items: center;
-  padding: 10 px;
-  width: 300px;
-  background-color: rgb(248, 240, 240);
-  margin: 0 auto;
-  border-radius: 5px;
-  box-shadow: 0px 1px 3px rgb(0 0 0 / 12%), 0px 1px 1px rgb(0 0 0 / 14%),
-    0px 2px 1px rgb(0 0 0 / 20%);
-
-  list-style: none;
-  margin-bottom: 20px;
+  border-radius: ${props => props.theme.spacing(0.5)};
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0;
 `;
 
 export const GalleryImage = styled.img`
-  width: 60px;
-  height: 60px;
+  width: 100%;
+  height: ${props => props.theme.spacing(65)};
   object-fit: cover;
-  background-color: rgb(236, 219, 219);
-  border-radius: 8px;
-  box-shadow: 1px 2px 1px rgb(0 0 0 / 12%), 1px 2px 2px rgb(0 0 0 / 14%),
-    0px 1px 3px rgb(0 0 0 / 20%);
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
   :hover {
     transform: scale(1.03);
     cursor: zoom-in;

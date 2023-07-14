@@ -8,6 +8,9 @@ export const theme = {
     info: '#17a2b8',
     light: '#f8f9fa',
     dark: '#045CB4',
+    mainBackground: ['linear-gradient(to bottom, #f2f2f2, #9e9e9e)'],
+    tagBackground: ['linear-gradient(to bottom, #3f51b5, #3f51b5)'],
+    white: '#ffffff',
   },
 
   space: [0, 2, 4, 8, 16, 32, 64, 128, 256],

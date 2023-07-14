@@ -4,10 +4,13 @@ export const GalleryList = styled.ul`
   display: grid;
   max-width: calc(100vw - 48px);
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  grid-gap: ${props => props.theme.space[2]}px;
-  margin: 0px auto;
+  grid-gap: ${props => props.theme.spacing(4)};
+  margin-top: 0;
+  margin-bottom: 0;
   padding: 0;
   list-style: none;
-  border-radius: 10px;
-  box-shadow: 1rem 1rem 2rem rgb(65, 64, 64), -1rem -1rem 2rem rgb(82, 81, 81);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: ${props => props.theme.spacing(2.5)};
+  margin-bottom: ${props => props.theme.spacing(2.5)};
 `;

@@ -47,7 +47,7 @@ export class App extends Component {
       const data = await API.getImages(searchQuery, currentPage);
 
       if (data.hits.length === 0) {
-        return this.setState({ error: 'Sorry image not found.' });
+        return this.setState({ error: 'Sorry, the image is not found.' });
       }
 
       const normalizedImages = API.normalizedImages(data.hits);
@@ -73,7 +73,7 @@ export class App extends Component {
         {images.length > 0 ? (
           <ImageGallery images={images} />
         ) : (
-          <Message>{'Let`s find iteresting images!'}</Message>
+          <Message>{'Let`s find interesting images!'}</Message>
         )}
         {isLoading && <Loader />}
         {images.length > 0 && totalPages !== currentPage && !isLoading && (

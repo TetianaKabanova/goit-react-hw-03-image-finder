@@ -8,12 +8,12 @@ export const Header = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 64px;
 
-  padding-right: ${props => props.theme.space[4]}px;
-  padding-left: ${props => props.theme.space[4]}px;
-  padding-top: ${props => props.theme.space[3]}px;
-  padding-bottom: ${props => props.theme.space[3]}px;
+  min-height: ${props => props.theme.spacing(16)};
+  padding-right: ${props => props.theme.spacing(6)};
+  padding-left: ${props => props.theme.spacing(6)};
+  padding-top: ${props => props.theme.spacing(3)};
+  padding-bottom: ${props => props.theme.spacing(3)};
 
   color: ${props => props.theme.colors.white};
   background-color: ${props => props.theme.colors.primary};
@@ -27,10 +27,11 @@ export const Form = styled.form`
   display: flex;
   align-items: center;
   width: 100%;
-  max-width: 800px;
+  max-width: ${props => props.theme.spacing(150)};
+  background-color: ${props => props.theme.colors.white};
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-  border-radius: ${props => props.theme.space[2]}px;
+  border-radius: ${props => props.theme.spacing(0.75)};
   overflow: hidden;
 `;
 
@@ -50,7 +51,7 @@ export const Input = styled.input`
   display: inline-block;
   width: 100%;
   font: inherit;
-  font-size: ${props => props.theme.fontSize.xl};
+  font-size: ${props => props.theme.fontSize.l};
   border: none;
   outline: none;
   padding-left: ${props => props.theme.space[2]}px;
@@ -89,6 +90,6 @@ export const Icon = styled.div`
   & svg {
     width: ${props => props.theme.spacing(7.5)};
     height: ${props => props.theme.spacing(7.5)};
-    fill: ${props => props.theme.colors.gray};
+    fill: ${props => props.theme.colors.secondary};
   }
 `;

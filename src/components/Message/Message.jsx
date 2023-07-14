@@ -4,7 +4,6 @@ import { Alert } from './Message.styled';
 export function Message({ children }) {
   return (
     <Alert role="alert">
-      <h2>Hello!</h2>
       <p>{children}</p>
     </Alert>
   );
