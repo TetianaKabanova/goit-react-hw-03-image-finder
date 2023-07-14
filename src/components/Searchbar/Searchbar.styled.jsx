@@ -8,11 +8,11 @@ export const Header = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: ${props => props.theme.spacing[16]};
-  padding-right: ${props => props.theme.space[6]};
-  padding-left: ${props => props.theme.space[6]};
-  padding-top: ${props => props.theme.space[3]};
-  padding-bottom: ${props => props.theme.space[3]};
+  min-height: ${props => props.theme.space[16]}px;
+  padding-right: ${props => props.theme.space[6]}px;
+  padding-left: ${props => props.theme.space[6]}px;
+  padding-top: ${props => props.theme.space[3]}px;
+  padding-bottom: ${props => props.theme.space[3]}px;
   color: ${props => props.theme.colors.white};
   background: ${props => props.theme.colors.tagBackground};
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
@@ -25,7 +25,7 @@ export const Form = styled.form`
   margin: 10 auto;
   max-width: 800px;
   background-color: ${props => props.theme.colors.white};
-  border-radius: ${props => props.theme.space[2]};
+  border-radius: ${props => props.theme.space[2]}px;
   overflow: hidden;
 `;
 
@@ -45,11 +45,11 @@ export const Input = styled.input`
   display: inline-block;
   width: 100%;
   font: inherit;
-  font-size: ${props => props.theme.spacing[6]};
+  font-size: ${props => props.theme.space[6]}px;
   border: none;
   outline: none;
-  padding-left: ${props => props.theme.space[2]};
-  padding-right: ${props => props.theme.space[2]};
+  padding-left: ${props => props.theme.space[2]}px;
+  padding-right: ${props => props.theme.space[2]}px;
 
   ::placeholder {
     font: inherit;
@@ -59,8 +59,8 @@ export const Input = styled.input`
 
 export const SubmitButton = styled.button`
   display: inline-block;
-  width: ${props => props.theme.space[16]};
-  height: ${props => props.theme.space[16]};
+  width: ${props => props.theme.space[16]}px;
+  height: ${props => props.theme.space[16]}px;
   border: 0;
 
   background-size: 40%;
@@ -78,12 +78,12 @@ export const SubmitButton = styled.button`
 
 export const Icon = styled.div`
   display: flex;
-  padding: ${props => props.theme.space[2]};
+  padding: ${props => props.theme.space[2]}px;
   justify-content: center;
 
   & svg {
-    width: ${props => props.theme.space[8]};
-    height: ${props => props.theme.space[8]};
+    width: ${props => props.theme.space[8]}px;
+    height: ${props => props.theme.space[8]}px;
     fill: ${props => props.theme.colors.gray};
   }
 `;

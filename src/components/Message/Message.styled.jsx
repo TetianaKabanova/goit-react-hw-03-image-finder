@@ -8,5 +8,5 @@ export const Alert = styled.div`
   font-size: ${props => props.theme.fontSize.s};
   color: ${props => props.theme.colors.dark};
   font-weight: 700;
-  margin-top: ${props => props.theme.space(8)};
+  margin-top: ${props => props.theme.space[8]}px;
 `;

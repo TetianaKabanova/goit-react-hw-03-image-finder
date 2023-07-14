@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { AiOutlineSearch } from 'react-icons/ai';
 import {
@@ -10,7 +10,7 @@ import {
   Icon,
 } from './Searchbar.styled.jsx';
 
-export class Searchbar extends React.Component {
+export class Searchbar extends Component {
   state = {
     searchQuery: '',
     inputValue: '',
