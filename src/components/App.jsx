@@ -5,6 +5,7 @@ import { Button } from './Button/Button.jsx';
 import { Loader } from './Loader/Loader.jsx';
 import * as API from '..//components//api/PixabayApi.js';
 import { Message } from './Message/Message.jsx';
+import { ErrorView } from './Error/Error.jsx';
 
 export class App extends Component {
   state = {
@@ -13,7 +14,7 @@ export class App extends Component {
     currentPage: 1,
     error: null,
     isLoading: false,
-    totalPages: 0,
+    totalPages: null,
   };
 
   componentDidUpdate(_, prevState) {
@@ -24,6 +25,7 @@ export class App extends Component {
       this.fetchImages();
     }
   }
+
   loadMore = () => {
     this.setState(prevState => ({
       currentPage: prevState.currentPage + 1,
@@ -46,8 +48,8 @@ export class App extends Component {
 
       const data = await API.getImages(searchQuery, currentPage);
 
-      if (data.hits.length === 0) {
-        return this.setState({ error: 'Sorry, the image is not found.' });
+      if (data.hits.length === 0 && !this.state.isLoading) {
+        return this.setState({ error: 'Sorry, no images found.' });
       }
 
       const normalizedImages = API.normalizedImages(data.hits);
@@ -65,7 +67,7 @@ export class App extends Component {
   };
 
   render() {
-    const { images, isLoading, currentPage, totalPages } = this.state;
+    const { images, isLoading, currentPage, totalPages, error } = this.state;
 
     return (
       <>
@@ -73,7 +75,10 @@ export class App extends Component {
         {images.length > 0 ? (
           <ImageGallery images={images} />
         ) : (
-          <Message>{'Let`s find interesting images!'}</Message>
+          <>
+            {!error && <Message>{'Let`s find interesting images!'}</Message>}
+            {error && <ErrorView>{error}</ErrorView>}
+          </>
         )}
         {isLoading && <Loader />}
         {images.length > 0 && totalPages !== currentPage && !isLoading && (
